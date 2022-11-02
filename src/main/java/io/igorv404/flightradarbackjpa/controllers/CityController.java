@@ -1,7 +1,10 @@
 package io.igorv404.flightradarbackjpa.controllers;
 
+import io.igorv404.flightradarbackjpa.dto.CityDTO;
+import io.igorv404.flightradarbackjpa.dto.assembler.CityDTOAssembler;
 import io.igorv404.flightradarbackjpa.models.City;
 import io.igorv404.flightradarbackjpa.services.CityService;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,34 +20,41 @@ import java.util.List;
 @RequestMapping("/cities")
 public class CityController {
   private final CityService cityService;
+  private final CityDTOAssembler cityDTOAssembler;
 
-  public CityController(CityService cityService) {
+  public CityController(CityService cityService, CityDTOAssembler cityDTOAssembler) {
     this.cityService = cityService;
+    this.cityDTOAssembler = cityDTOAssembler;
   }
 
   @GetMapping
-  public List<City> getAll() {
-    return this.cityService.getAll();
+  public CollectionModel<CityDTO> getAll() {
+    List<City> cities = this.cityService.getAll();
+    return this.cityDTOAssembler.toCollectionModel(cities);
   }
 
   @GetMapping("/{id}")
-  public City getById(@PathVariable Integer id) {
-    return this.cityService.getById(id);
+  public CityDTO getById(@PathVariable Integer id) {
+    City city = this.cityService.getById(id);
+    return this.cityDTOAssembler.toModel(city);
   }
 
   @GetMapping("/country/{name}")
-  public List<City> getAllByCountryName(@PathVariable String name) {
-    return this.cityService.getAllByCountryName(name);
+  public CollectionModel<CityDTO> getAllByCountryName(@PathVariable String name) {
+    List<City> cities = this.cityService.getAllByCountryName(name);
+    return this.cityDTOAssembler.toCollectionModel(cities);
   }
 
   @PostMapping("/{countryName}")
-  public City createWithCountryName(@RequestBody City entity, @PathVariable String countryName) {
-    return this.cityService.create(entity, countryName);
+  public CityDTO createWithCountryName(@RequestBody City entity, @PathVariable String countryName) {
+    City city = this.cityService.create(entity, countryName);
+    return this.cityDTOAssembler.toModel(city);
   }
 
   @PutMapping("/{id}")
-  public City update(@PathVariable Integer id, @RequestBody City entity) {
-    return this.cityService.update(id, entity);
+  public CityDTO update(@PathVariable Integer id, @RequestBody City entity) {
+    City city = this.cityService.update(id, entity);
+    return this.cityDTOAssembler.toModel(city);
   }
 
   @DeleteMapping("/{id}")

@@ -34,7 +34,6 @@ public class CountryServiceImpl implements CountryService {
   }
 
   @Override
-  @Transactional
   public Country update(String id, Country entity) {
     Country updatedEntity = this.countryRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     updatedEntity.setName(entity.getName());

@@ -39,7 +39,6 @@ public class CityServiceImpl implements CityService {
   }
 
   @Override
-  @Transactional
   public City create(City entity, String countryName) {
     Country country = this.countryRepository.findById(countryName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     entity.setCountryName(country);
