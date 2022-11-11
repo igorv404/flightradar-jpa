@@ -51,6 +51,11 @@ public class CityController {
     return this.cityDTOAssembler.toModel(city);
   }
 
+  @PostMapping("/proc/{cityName}")
+  public void createTenCities(@PathVariable String cityName) {
+    this.cityService.createTenCities(cityName);
+  }
+
   @PutMapping("/{id}")
   public CityDTO update(@PathVariable Integer id, @RequestBody City entity) {
     City city = this.cityService.update(id, entity);

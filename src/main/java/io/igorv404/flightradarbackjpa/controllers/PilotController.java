@@ -57,6 +57,11 @@ public class PilotController {
     return this.pilotDTOAssembler.toModel(pilot);
   }
 
+  @PostMapping("/newdb")
+  public void createDB() {
+    this.pilotService.createDB();
+  }
+
   @PutMapping("/{id}")
   public PilotDTO update(@PathVariable Integer id, @RequestBody Pilot entity) {
     Pilot pilot = this.pilotService.update(id, entity);

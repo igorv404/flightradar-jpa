@@ -8,4 +8,6 @@ import java.util.List;
 public interface CityService extends ServiceTemplate<City, Integer> {
   City create(City entity, String countryName);
   List<City> getAllByCountryName(String id);
+
+  void createTenCities(String name);
 }

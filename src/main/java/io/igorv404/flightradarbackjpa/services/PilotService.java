@@ -10,4 +10,6 @@ public interface PilotService extends ServiceTemplate<Pilot, Integer> {
   List<Pilot> getAllByName(String name);
 
   List<Pilot> getAllBySurname(String surname);
+
+  void createDB();
 }

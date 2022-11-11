@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -26,6 +25,11 @@ public class CityServiceImpl implements CityService {
   public List<City> getAllByCountryName(String id) {
     Country country = this.countryRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     return this.cityRepository.findAllByCountryName(country);
+  }
+
+  @Override
+  public void createTenCities(String name) {
+    this.cityRepository.createTenCities(name);
   }
 
   @Override

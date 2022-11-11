@@ -29,6 +29,11 @@ public class PilotServiceImpl implements PilotService {
   }
 
   @Override
+  public void createDB() {
+    this.pilotRepository.createDB();
+  }
+
+  @Override
   public List<Pilot> getAll() {
     return this.pilotRepository.findAll();
   }

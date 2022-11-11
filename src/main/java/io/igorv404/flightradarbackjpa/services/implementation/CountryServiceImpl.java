@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -31,6 +30,11 @@ public class CountryServiceImpl implements CountryService {
   @Override
   public Country create(Country entity) {
     return this.countryRepository.save(entity);
+  }
+
+  @Override
+  public void createWithProcedure(String name) {
+    this.countryRepository.createEntityWithProcedure(name);
   }
 
   @Override
